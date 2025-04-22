@@ -1,12 +1,21 @@
 # jambda-calc Monorepo!
 
+[![NPM Version](https://img.shields.io/npm/v/jambda-calc.svg)](https://www.npmjs.com/package/jambda-calc)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue.svg)](https://www.typescriptlang.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/maximus-powers/jambda-calc/pulls)
+
 ##### JavaScript -> λ Calculus (Transpiler + Visualizer)
 
 _This is the entire codebase for the jambda-calc project, including the [package files](./packages/jambda-calc/) and a [docs/playground web app](./apps/web/). This monorepo is homebase for all development, for a guide on using the package itself, please visit [npmjs.com](https://www.npmjs.com/package/jambda-calc)._
 
 **Vision:** As a Turing-complete language, any programatic code can be transpiled to lambda calculus. Our goal is to develop the **first package capable of parsing entire JS/TS into formal λ.** Ultimately, it'll be capable of ingesting entire JS/TS codebases and spitting out massive _sexy_ Tromp diagrams.
 
-**Project Links:** 📖 Web app (docs and playground) | [⬇️ npm page](https://www.npmjs.com/package/jambda-calc)
+**Project Links:** 📖 Web app (docs and playground) | [⬇️ npm page](https://www.npmjs.com/package/jambda-calc) 
+
+![GitHub stars](https://img.shields.io/github/stars/maximus-powers/jambda-calc?style=social)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/maximus-powers/jambda-calc)
+[![Monorepo](https://img.shields.io/badge/Monorepo-Turborepo-blueviolet.svg)](https://turbo.build/docs)
 
 ---
 
