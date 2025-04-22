@@ -1,6 +1,6 @@
-# Welcome to Jambda-Calc
+# Welcome to jambda-calc
 
-#### A npm package for transpiling JS/TS into lambda calculus, and visualizing expressions with [Tromp Diagrams](https://tromp.github.io/cl/diagrams.html).
+#### An npm package for transpiling JS/TS into λ calculus, and visualizing expressions with [Tromp Diagrams](https://tromp.github.io/cl/diagrams.html).
 
 Lambda calculus is one of the most simple Turing-complete languages, meaning that theoretically any valid programmatic function can be transpiled from it's native language, into a lambda expression.
 
@@ -34,7 +34,7 @@ Not yet implemented:
 
 ![visualizer image](docs/visualizer-img.png)
 
-The visualizer converts [formal lambda calculus](https://opendsa.cs.vt.edu/ODSA/Books/PL/html/Syntax.html) into Tromp Diagrams.
+The visualizer converts [formal λ calculus](https://opendsa.cs.vt.edu/ODSA/Books/PL/html/Syntax.html) into Tromp Diagrams.
 
 - Lambda abstractions (functions) are represented as horizontal lines across the top.
 - Variables (params) cross abstraction lines vertically.

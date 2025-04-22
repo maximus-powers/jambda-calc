@@ -24,7 +24,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@workspace/ui':
+      '@jambda-mono/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       jambda-calc:

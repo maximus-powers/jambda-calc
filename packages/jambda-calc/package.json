@@ -1,7 +1,7 @@
 {
   "name": "jambda-calc",
   "version": "0.5.2",
-  "description": "Convert JavaScript/TypeScript functions to lambda calculus notation and visualize them with Tromp Diagrams.",
+  "description": "Convert JavaScript functions to the Lambda Calculus, and visualize them with Tromp diagrams.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,17 +10,15 @@
   },
   "files": [
     "dist",
-    "README.md",
-    "LICENSE"
+    "readme.md"
   ],
   "scripts": {
-    "build": "tsc && cp -r src/lib/scripts dist/lib/ && chmod +x dist/bin/jambda.js && chmod +x dist/lib/scripts/run-examples.js && mkdir -p dist/lib/scripts/examples && cp -r src/lib/scripts/examples dist/lib/scripts/",
+    "build": "tsc && cp -r src/lib/scripts dist/lib/ && chmod +x dist/bin/jambda.js && chmod +x dist/lib/scripts/run-examples.js",
     "clean": "rm -rf dist && rm -rf node_modules",
     "rebuild": "pnpm clean && pnpm build",
     "lint": "eslint .",
     "examples": "node dist/bin/jambda.js examples",
-    "start": "node dist/bin/jambda.js",
-    "prepublishOnly": "npm run build && chmod +x dist/bin/jambda.js"
+    "start": "node dist/bin/jambda.js"
   },
   "dependencies": {
     "esprima": "^4.0.1",
@@ -57,5 +55,5 @@
   "bugs": {
     "url": "https://github.com/maximus-powers/jambda-calc/issues"
   },
-  "homepage": "https://github.com/maximuspowers/jambda-calc#readme"
+  "homepage": "https://github.com/maximus-powers/jambda-calc/tree/main/packages/jambda-calc#readme"
 }

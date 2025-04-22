@@ -4,7 +4,11 @@ export * from './lib/transpiler/index.js';
 export * from './lib/visualizer/index.js';
 
 import { transpile } from './lib/transpiler/index.js';
-import { visualize as visualizeExpr, renderSVGAsASCII, VisualizerOptions } from './lib/visualizer/index.js';
+import {
+  visualize as visualizeExpr,
+  renderSVGAsASCII,
+  VisualizerOptions,
+} from './lib/visualizer/index.js';
 
 // main api
 export const jambda = {

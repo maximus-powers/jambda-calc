@@ -44,7 +44,7 @@ function showHelp(): void {
 if (args.length === 1 && args[0] === 'examples') {
   try {
     const examplesScriptPath = path.resolve(__dirname, '../lib/scripts/run-examples.js');
-    
+
     try {
       execSync(`node "${examplesScriptPath}"`, { stdio: 'inherit' });
       process.exit(0);
