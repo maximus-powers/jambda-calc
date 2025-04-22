@@ -1,0 +1,61 @@
+{
+  "name": "jambda-calc",
+  "version": "0.5.2",
+  "description": "Convert JavaScript/TypeScript functions to lambda calculus notation and visualize them with Tromp Diagrams.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "jambda-calc": "dist/bin/jambda.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && cp -r src/lib/scripts dist/lib/ && chmod +x dist/bin/jambda.js && chmod +x dist/lib/scripts/run-examples.js && mkdir -p dist/lib/scripts/examples && cp -r src/lib/scripts/examples dist/lib/scripts/",
+    "clean": "rm -rf dist && rm -rf node_modules",
+    "rebuild": "pnpm clean && pnpm build",
+    "lint": "eslint .",
+    "examples": "node dist/bin/jambda.js examples",
+    "start": "node dist/bin/jambda.js",
+    "prepublishOnly": "npm run build && chmod +x dist/bin/jambda.js"
+  },
+  "dependencies": {
+    "esprima": "^4.0.1",
+    "jsdom": "26.1.0",
+    "sharp": "^0.34.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "eslint": "^8.56.0",
+    "@types/esprima": "^4.0.6",
+    "@types/jsdom": "21.1.7",
+    "@types/estree": "^1.0.7",
+    "@types/node": "^22.14.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
+  },
+  "keywords": [
+    "lambda",
+    "lambda-calculus",
+    "javascript",
+    "typescript",
+    "transpiler",
+    "visualization",
+    "tromp-diagrams"
+  ],
+  "author": "Maximus Powers",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maximus-powers/jambda-calc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maximus-powers/jambda-calc/issues"
+  },
+  "homepage": "https://github.com/maximuspowers/jambda-calc#readme"
+}

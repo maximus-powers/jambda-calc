@@ -1,3 +1,4 @@
+import React from "react";
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "@workspace/ui/globals.css"

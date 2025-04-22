@@ -1,0 +1,51 @@
+# Git files
+.git
+.gitignore
+
+# Source files (since we're publishing compiled files)
+src/
+
+# Test files
+tests/
+**/test/
+**/tests/
+**/*.test.*
+**/*.spec.*
+
+# Development files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+
+# Debug files
+lambda-debug.txt
+ast-debug.json
+*-debug.*
+
+# Example outputs
+output/
+examples/*.lambda.txt
+examples/*.svg
+examples/*.png
+
+
+
+# Config files not needed in the published package
+.eslintrc.*
+eslint.config.*
+tsconfig.json
+*.config.js
+*.config.ts
+
+# Temporary files
+tmp/
+temp/
+backup/
+
+# Environment files
+.env*
+
+# Log files
+*.log
