@@ -19,11 +19,13 @@ _This is the entire codebase for the jambda-calc project, including the [package
 
 ---
 
-## To Do
+## 🚀 Development Timeline
 
-- Y Combinator Recursion
-- Implement color coding to diagrams (each λ. term should have it's own color).
-- Beta reduction animations
+| Feature | Description | Target Date |
+|---------|-------------|-------------|
+| **Y Combinator Recursion** | Implementation of recursion using Y combinator | Q2 2025 |
+| **Color Coding for Diagrams** | Each λ term will have its own distinct color | Q3 2025 |
+| **Beta Reduction Animations** | Animated visualization of β-reduction steps | Q4 2025 |
 
 ---
 
