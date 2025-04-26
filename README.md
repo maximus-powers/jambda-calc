@@ -21,11 +21,11 @@ _This is the entire codebase for the jambda-calc project, including the [package
 
 ## 🚀 Development Timeline
 
-| Feature | Description | Target Date |
-|---------|-------------|-------------|
-| **Y Combinator Recursion** | Implementation of recursion using Y combinator | Q2 2025 |
-| **Color Coding for Diagrams** | Each λ term will have its own distinct color | Q3 2025 |
-| **Beta Reduction Animations** | Animated visualization of β-reduction steps | Q4 2025 |
+| Feature                       | Description                                    | Target Date |
+| ----------------------------- | ---------------------------------------------- | ----------- |
+| **Y Combinator Recursion**    | Implementation of recursion using Y combinator | May 2025    |
+| **Color Coding for Diagrams** | Each λ term will have its own distinct color   | June 2025   |
+| **Beta Reduction Animations** | Animated visualization of β-reduction steps    | June 2025   |
 
 ---
 
@@ -49,6 +49,7 @@ To start contributing, clone this repo with `git clone https://github.com/maximu
 
 - `pnpm install`: Run after cloning this repo, from the project root (install dependencies).
 - `pnpm lint`: Run periodically when modifying files, and always before submitting a pull request to check if any of your changes create any errors.
+- `pnpm dev`: Runs the web app in development mode.
 
 **/jambda-calc dir cmds:**
 
@@ -60,8 +61,7 @@ To start contributing, clone this repo with `git clone https://github.com/maximu
 
 - `packages/`: This is where we can create internal packages for our codebase.
   - `jambda-calc` package, which is configured to be published to the npm registry.
-  - `@jambda-mono/ui`, which is where we store shadcn components used in our app.
-  - Packages should all have a package.json which is named "@jambda-mono/{package-name}". jambda-calc is the exception to this naming convention because it gets published.
+  - Internal packages should all have a package.json which is named "@jambda-mono/{package-name}". jambda-calc is the exception to this naming convention because it gets published.
 - `apps/`: This directory is where we put our NextJS apps (currently just docs). You can import packages from the packages dir by adding it to the app's package.json like this "@jambda-mono/ui": "workspace:\*".
   - `docs`: This is our web app for docs on how to use our package, and where we run a demo.
 

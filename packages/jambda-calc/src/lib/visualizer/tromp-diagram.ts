@@ -223,38 +223,27 @@ function assignIndices(
   return term;
 }
 
-interface DiagramResult {
-  svg: string;
-  height: number;
-  width: number;
-}
-
-interface TrompDiagramOptions {
+export interface VisualizerOptions {
   unitSize?: number;
   lineWidth?: number;
   padding?: number;
   backgroundColor?: string;
-  preserveAspectRatio?: boolean;
-  outputDir?: string | undefined;
 }
 
 /**
  * Main tromp diagram generator class.
  */
 export class TrompDiagramGenerator {
-  options: Required<TrompDiagramOptions>;
+  options: Required<VisualizerOptions>;
   private seenOperations: Set<string>;
   private labelPositions: Array<{ x: number; y: number; label: string }>;
 
-  constructor(options: TrompDiagramOptions = {}) {
+  constructor(options: VisualizerOptions = {}) {
     this.options = {
       unitSize: options.unitSize || 30,
       lineWidth: options.lineWidth || 3,
       padding: options.padding || 60,
-      backgroundColor: options.backgroundColor || '#000000',
-      preserveAspectRatio:
-        options.preserveAspectRatio !== undefined ? options.preserveAspectRatio : true,
-      outputDir: options.outputDir || '',
+      backgroundColor: options.backgroundColor || '#FFF',
     };
     this.seenOperations = new Set<string>();
     this.labelPositions = [];
@@ -276,10 +265,14 @@ export class TrompDiagramGenerator {
 
       // draw diagram lines
       const figure = this.drawTerm(expression);
-      let svg = `<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">`; // create svg container
+
+      // calc dims
+      const totalWidth = figure.width * this.options.unitSize + this.options.padding * 2;
+      const totalHeight = figure.height * this.options.unitSize + this.options.padding * 2;
+
+      let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${totalHeight}" preserveAspectRatio="xMidYMid meet">`; // create svg container
       svg += `<rect width="100%" height="100%" fill="${this.options.backgroundColor}" />`; // add background
 
-      // TODO: add padding to the bottom and right
       const offsetX = this.options.padding;
       const offsetY = this.options.padding;
       svg += `<g transform="translate(${offsetX}, ${offsetY})">`; // container for the diagram itself
@@ -295,7 +288,11 @@ export class TrompDiagramGenerator {
    * Converts parsed expression/term into svg lines
    * Returns { svg, height, width } object
    */
-  drawTerm(term: Term): DiagramResult {
+  drawTerm(term: Term): {
+    svg: string;
+    height: number;
+    width: number;
+  } {
     const horizontalGap = this.options.unitSize;
 
     if (term.type === TermType.VAR) {
@@ -303,8 +300,8 @@ export class TrompDiagramGenerator {
 
       const h = 0;
       const w = 1;
-      const varX = this.options.padding + horizontalGap; // shift right (lamdba abstractions were also)
-      const varY = this.options.padding;
+      const varX = horizontalGap;
+      const varY = 0;
       const varHeight = (term.index !== undefined ? term.index + 1 : 0) * this.options.unitSize; // de bruijn idx determines height
 
       let svg = `<line x1="${varX}" y1="${varY}" x2="${varX}" y2="${varY - varHeight}" 
@@ -320,8 +317,8 @@ export class TrompDiagramGenerator {
       const w = bodyResult.width;
       const lineColor = '#000000'; // TODO: make this dynamic (assign colors to components and use it here)
       const binderWidth = w * this.options.unitSize; // shorten the width of each binder to show space between lambda abstractions
-      const binderX = this.options.padding + horizontalGap;
-      const binderY = this.options.padding;
+      const binderX = horizontalGap;
+      const binderY = 0;
       // draw the lambda binder over the body
       let svg = `<line x1="${binderX}" y1="${binderY}" x2="${binderX + binderWidth}" y2="${binderY}" 
                stroke="${lineColor}" stroke-width="${this.options.lineWidth}" />`;
@@ -350,13 +347,13 @@ export class TrompDiagramGenerator {
 
       // draw svg
       let svg = '';
-      const funcBottom = this.options.padding + h1 * unitSize; // find bottom y coord
-      const argBottom = this.options.padding + h2 * unitSize; // find bottom y coord
+      const funcBottom = h1 * unitSize; // find bottom y coord (removing padding)
+      const argBottom = h2 * unitSize; // find bottom y coord (removing padding)
       const barY = Math.max(funcBottom, argBottom);
 
       // v line for function side (if function is shorter than argument, usually the case)
       if (funcBottom < barY) {
-        const funcVLineX = this.options.padding + horizontalGap; // align with lambda
+        const funcVLineX = horizontalGap; // align with lambda (removing padding)
         const funcVLineY = funcBottom;
         const funcVLineHeight = barY - funcBottom;
         svg += `<line x1="${funcVLineX}" y1="${funcVLineY}" x2="${funcVLineX}" y2="${funcVLineY + funcVLineHeight}" 
@@ -366,7 +363,7 @@ export class TrompDiagramGenerator {
       // v line for argument side (if argument is shorter than function)
       if (argBottom < barY) {
         // calc right side position with consistent spacing
-        const argVXPos = this.options.padding + horizontalGap + (w1 + 1) * unitSize; // Adjusted for even spacing
+        const argVXPos = horizontalGap + (w1 + 1) * unitSize; // Adjusted for even spacing (removing padding)
         const argVLineY = argBottom;
         const argVLineHeight = barY - argBottom;
         svg += `<line x1="${argVXPos}" y1="${argVLineY}" x2="${argVXPos}" y2="${argVLineY + argVLineHeight}" 
@@ -374,7 +371,7 @@ export class TrompDiagramGenerator {
       }
 
       // draw h connecting bar at the bottom-left corners with consistent spacing
-      const barX = this.options.padding + horizontalGap; // align with lambda
+      const barX = horizontalGap; // align with lambda (removing padding)
       const barWidth = (w1 + 1) * unitSize; // Adjusted for even spacing
       svg += `<line x1="${barX}" y1="${barY}" x2="${barX + barWidth}" y2="${barY}" 
             stroke="#000000" stroke-width="${this.options.lineWidth}" stroke-linecap="round" />`;

@@ -13,7 +13,7 @@ Vision is to process entire js projects into diagrams
 
 ### Transpiler Functionality:
 
-![transpiler image](docs/transpiler-img.png)
+![transpiler image](images/transpiler-img.png)
 
 The transpiler (for converting JS/TS code into lambda calc), has handling for input files containing:
 
@@ -27,12 +27,16 @@ The transpiler (for converting JS/TS code into lambda calc), has handling for in
 Not yet implemented:
 
 - String operations
+- Recursion
+- Async functions
+- let/var
+- Increment/decrement (SUCC)
 - Imported functions/modules from other files/dependencies
 - Other member functions (Math.cos(), Math.log()) - Get abstracted as ((λobj.λprop.obj prop) ${func} (λx.x))
 
 ### Visualizer Functionality
 
-![visualizer image](docs/visualizer-img.png)
+![visualizer image](images/visualizer-img.png)
 
 The visualizer converts [formal λ calculus](https://opendsa.cs.vt.edu/ODSA/Books/PL/html/Syntax.html) into Tromp Diagrams.
 

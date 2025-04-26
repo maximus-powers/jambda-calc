@@ -7,7 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import { transpile } from '../lib/transpiler/index.js';
-import { visualize, renderSVGAsASCII } from '../lib/visualizer/index.js';
+import { visualize } from '../lib/visualizer/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,9 +16,21 @@ const args = process.argv.slice(2);
 
 let inputFile = '';
 let outputPath: string | null = null;
-let format = 'png';
+let format: 'svg' | 'png' | 'ascii' = 'png';
 let shouldTranspile = true;
 let shouldVisualize = false;
+
+// used in terminal outputs
+const colors = {
+  reset: '\x1b[0m',
+  bright: '\x1b[1m',
+  dim: '\x1b[2m',
+  red: '\x1b[31m',
+  purple: '\x1b[35m',
+  yellow: '\x1b[33m',
+  white: '\x1b[37m',
+  gray: '\x1b[90m',
+};
 
 function showHelp(): void {
   console.log('Usage: jambda-calc [options]\n');
@@ -83,7 +95,14 @@ for (let i = 0; i < args.length; i++) {
     shouldTranspile = false;
   } else if (args[i] === '--format' || args[i] === '-f') {
     if (i + 1 < args.length) {
-      format = args[i + 1].toLowerCase();
+      const validFormats: ('svg' | 'png' | 'ascii')[] = ['svg', 'png', 'ascii'];
+      const selectedFormat = args[i + 1].toLowerCase();
+      if (validFormats.includes(selectedFormat as 'svg' | 'png' | 'ascii')) {
+        format = selectedFormat as 'svg' | 'png' | 'ascii';
+      } else {
+        console.error(`${colors.red}Invalid format: ${selectedFormat}${colors.reset}`);
+        process.exit(1);
+      }
       i++;
     }
   } else if (args[i] === '--help' || args[i] === '-h') {
@@ -109,18 +128,6 @@ if (
   shouldTranspile = false;
   shouldVisualize = true;
 }
-
-// used in terminal outputs
-const colors = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  dim: '\x1b[2m',
-  red: '\x1b[31m',
-  purple: '\x1b[35m',
-  yellow: '\x1b[33m',
-  white: '\x1b[37m',
-  gray: '\x1b[90m',
-};
 
 async function main(): Promise<void> {
   try {
@@ -179,7 +186,6 @@ async function main(): Promise<void> {
         preserveAspectRatio: true,
       };
 
-      let svgContent;
       if (outputPath) {
         let visOutputPath;
         // handle cases where user adds an extension to the output
@@ -188,23 +194,23 @@ async function main(): Promise<void> {
             outputPath,
             `${path.basename(inputFile, path.extname(inputFile))}.${format}`
           );
-        }
-        const baseOutputPath = outputPath.replace(path.extname(outputPath), '');
-        visOutputPath = `${baseOutputPath}.${format}`;
-        if (!fs.existsSync(path.dirname(path.dirname(visOutputPath)))) {
-          fs.mkdirSync(path.dirname(path.dirname(visOutputPath)), { recursive: true });
+        } else {
+          const baseOutputPath = outputPath.replace(path.extname(outputPath), '');
+          visOutputPath = `${baseOutputPath}.${format}`;
         }
 
-        // run visualizer
-        svgContent = visualize(lambdaExpression, options, visOutputPath, format);
+        if (!fs.existsSync(path.dirname(visOutputPath))) {
+          fs.mkdirSync(path.dirname(visOutputPath), { recursive: true });
+        }
+
+        visualize(lambdaExpression, options, visOutputPath, format);
         console.log(`${colors.gray}Generated diagram: ${visOutputPath}${colors.reset}`);
       } else {
         // if no -o, display in console
-        svgContent = visualize(lambdaExpression, options);
+        const diagram = visualize(lambdaExpression, options, undefined, 'ascii');
         try {
-          const asciiDiagram = renderSVGAsASCII(svgContent);
           console.log(`\n${colors.bright}${colors.white}Tromp Diagram${colors.reset}\n`);
-          console.log(colors.white + asciiDiagram + colors.reset);
+          console.log(colors.white + diagram + colors.reset);
           console.log(
             `\n${colors.yellow}Note: Use --output (or -o) to save graphical SVG/PNG versions.${colors.reset}`
           );
