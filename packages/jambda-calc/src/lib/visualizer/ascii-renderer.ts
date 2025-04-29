@@ -1,10 +1,5 @@
 import { JSDOM } from 'jsdom';
 
-/**
- * Renders an SVG string as ASCII art
- * @param svgString - The SVG string of a Tromp diagram to render
- * @returns The ASCII representation
- */
 export function renderSVGAsASCII(svgString: string): string {
   const dom = new JSDOM(svgString);
   const document = dom.window.document;
@@ -83,31 +78,52 @@ export function renderSVGAsASCII(svgString: string): string {
     .fill(0)
     .map(() => Array(width).fill(' '));
 
+  // find intersections
+  const intersections: Set<string> = new Set();
+  for (const hLine of horizontalLines) {
+    const hY = Math.round(hLine.y);
+    const hX1 = Math.round(hLine.x1);
+    const hX2 = Math.round(hLine.x2);
+
+    for (const vLine of verticalLines) {
+      const vX = Math.round(vLine.x);
+      const vY1 = Math.round(vLine.y1);
+      const vY2 = Math.round(vLine.y2);
+
+      if (vX >= hX1 && vX <= hX2 && hY >= vY1 && hY <= vY2) {
+        const gridX = xMap.get(vX) || 0;
+        const gridY = yMap.get(hY) || 0;
+        intersections.add(`${gridX},${gridY}`);
+      }
+    }
+  }
+
   // draw v lines
-  verticalLines.forEach((line) => {
+  for (const line of verticalLines) {
     const gridX = xMap.get(Math.round(line.x)) || 0;
     const startY = yMap.get(Math.round(line.y1)) || 0;
     const endY = yMap.get(Math.round(line.y2)) || 0;
+
     for (let y = startY; y <= endY; y++) {
       grid[y][gridX] = '│';
     }
-  });
+  }
 
   // draw h lines
-  horizontalLines.forEach((line) => {
+  for (const line of horizontalLines) {
     const gridY = yMap.get(Math.round(line.y)) || 0;
     const startX = xMap.get(Math.round(line.x1)) || 0;
     const endX = xMap.get(Math.round(line.x2)) || 0;
 
     for (let x = startX; x <= endX; x++) {
-      if (grid[gridY][x] === '│') {
-        // handle intersetcions with ┼
+      const key = `${x},${gridY}`;
+      if (intersections.has(key)) {
         grid[gridY][x] = '┼';
       } else {
-        grid[gridY][x] = x % 2 === 0 ? '─' : endX > x ? '─' : ' ';
+        grid[gridY][x] = '─';
       }
     }
-  });
+  }
 
   return grid.map((row) => row.join('')).join('\n');
 }

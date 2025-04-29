@@ -182,7 +182,7 @@ async function main(): Promise<void> {
         unitSize: 12,
         lineWidth: 2,
         padding: 10,
-        backgroundColor: '#282a36',
+        backgroundColor: '#83a7af',
         preserveAspectRatio: true,
       };
 

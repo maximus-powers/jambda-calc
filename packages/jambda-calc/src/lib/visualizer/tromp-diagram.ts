@@ -243,7 +243,7 @@ export class TrompDiagramGenerator {
       unitSize: options.unitSize || 30,
       lineWidth: options.lineWidth || 3,
       padding: options.padding || 60,
-      backgroundColor: options.backgroundColor || '#FFF',
+      backgroundColor: options.backgroundColor || '#ffffff',
     };
     this.seenOperations = new Set<string>();
     this.labelPositions = [];

@@ -1,6 +1,6 @@
 {
   "name": "jambda-calc",
-  "version": "0.5.12",
+  "version": "0.6.1",
   "description": "Convert JavaScript functions to the Lambda Calculus, and visualize them with Tromp diagrams.",
   "type": "module",
   "main": "dist/index.js",
