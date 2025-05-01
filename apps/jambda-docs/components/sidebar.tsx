@@ -11,8 +11,8 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: '🧑‍🍳 - Cookbook', href: '/cookbook' },
   { name: '📋 - Input JS Checklist', href: '/js-specs' },
-  { name: '🛝 - Playground', href: '/playground' },
-  { name: '🧑‍🏫 - λ Calc Resources', href: '/learn-lambda-calc' },
+  // { name: '🛝 - Playground', href: '/playground' },
+  // { name: '🧑‍🏫 - λ Calc Resources', href: '/learn-lambda-calc' },
 ];
 
 export default function Sidebar() {

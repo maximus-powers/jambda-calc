@@ -135,9 +135,6 @@ importers:
       input-otp:
         specifier: 1.4.1
         version: 1.4.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      jambda-calc:
-        specifier: ^0.5.12
-        version: 0.5.12
       lucide-react:
         specifier: ^0.454.0
         version: 0.454.0(react@19.0.0)
@@ -2121,10 +2118,6 @@ packages:
 
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
-
-  jambda-calc@0.5.12:
-    resolution: {integrity: sha512-LUktisRJHWL6X2hNwXzlxSbW1sCzxe8snyHlWEOvvBrrGdAhuemXY0RVLtHT/YmeJpKsxsQLfrbNZuvcPkhQpw==}
-    hasBin: true
 
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
@@ -4994,18 +4987,6 @@ snapshots:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
-
-  jambda-calc@0.5.12:
-    dependencies:
-      esprima: 4.0.1
-      jsdom: 26.1.0
-      sharp: 0.34.1
-      typescript: 5.7.3
-    transitivePeerDependencies:
-      - bufferutil
-      - canvas
-      - supports-color
-      - utf-8-validate
 
   jiti@1.21.7: {}
 
